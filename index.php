@@ -13,7 +13,7 @@ function average($values) {
 	$total = 0;
 	$count = 0;
 	foreach ($values as $temperature) {
-		$total += floatval($temperature);
+		$total += $temperature;
 		$count++;
 	}
 	
@@ -23,7 +23,7 @@ function average($values) {
 function getMin($values) {
 	$lowest = NULL;
 	foreach ($values as $temperature) {
-		$value = floatval($temperature);
+		$value = $temperature;
 		if ($lowest === NULL || $value < $lowest) {
 			$lowest = $value;
 		}
@@ -34,7 +34,7 @@ function getMin($values) {
 function getMax($values) {
 	$highest = NULL;
 	foreach ($values as $temperature) {
-		$value = floatval($temperature);
+		$value = $temperature;
 		if ($highest === NULL || $value > $highest) {
 			$highest = $value;
 		}
@@ -44,9 +44,23 @@ function getMax($values) {
 
 // Prepare the values
 $values = $result[3];
-$valuesLast24Hours = array_slice($result[3], -96);
-$valuesLastWeek = array_slice($result[3], -96*7);
+$floatValues = array();
+foreach ($values as $value) {
+	$floatValues[] = floatval($value);
+}
+$valuesLast24Hours = array_slice($floatValues, -96);
+$valuesLastWeek = array_slice($floatValues, -96*7);
 
+// Merge date and time part together
+$labels = array_map(function($a, $b){
+	$dateString = $a . ' ' . $b . ' UTC';
+	return strtotime($dateString) * 1000;
+}, $result[1], $result[2]);
+
+// Create Points for Flot charting library
+$points = array_map(function($a, $b){
+	return array($a, $b);
+}, $labels, $floatValues);
 
 // Calculate average and min/max values
 $average = average($values);
@@ -77,10 +91,6 @@ $highestWeek = getMax($valuesLastWeek);
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
-      .container-canvas {
-      	margin-right:auto;
-      	margin-left:auto;
       }
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -116,11 +126,7 @@ $highestWeek = getMax($valuesLastWeek);
 
      <div class="row">
      <h3>Last 24 Hours</h3>
-     	<div class="span9 container-canvas">
-	     	<center>
-     			<canvas id="last24Hour" width="800" height="400"></canvas>
-     		</center>
-     	</div>
+     	<div id="day" style="height:300px" class="span9"></div>
      	<div class="span2 well">
      		<p>Average: <strong class="pull-right"><?php echo $average24Hours;?> C&deg;</strong></p>
      		<p>Lowest:	<strong class="pull-right"><?php echo $lowest24Hours?> C&deg;</strong></p>
@@ -130,11 +136,7 @@ $highestWeek = getMax($valuesLastWeek);
      
      <div class="row">
      	<h3>Last Week</h3>
-     	<div class="span9 container-canvas">
-	     	<center>
-     			<canvas id="week" width="800" height="400"></canvas>
-     		</center>
-     	</div>
+     	<div id="week" style="height:300px" class="span9"></div>
      	<div class="span2 well">
      		<p>Average: <strong class="pull-right"><?php echo $averageWeek;?> C&deg;</strong></p>
      		<p>Lowest:	<strong class="pull-right"><?php echo $lowestWeek?> C&deg;</strong></p>
@@ -144,11 +146,7 @@ $highestWeek = getMax($valuesLastWeek);
      
      <div class="row">
      	<h3>Overall</h3>
-     	<div class="span9 container-canvas">
-	     	<center>
-     			<canvas id="overall" width="800" height="400"></canvas>
-     		</center>
-     	</div>
+     	<div id="overall" style="height:300px" class="span9"></div>
      	<div class="span2 well">
      		<p>Average: <strong class="pull-right"><?php echo $average;?> C&deg;</strong></p>
      		<p>Lowest:	<strong class="pull-right"><?php echo $lowest?> C&deg;</strong></p>
@@ -163,106 +161,52 @@ $highestWeek = getMax($valuesLastWeek);
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/Chart.min.js""></script>
+    <script src="js/jquery.flot.min.js"></script>
+    <script src="js/jquery.flot.time.min.js""></script>
+    <script src="js/jquery.flot.tooltip.min.js""></script>
 
     <?php 
-    	
-    /**
-     * 
-     * 
-     */
-    function arrayReplaceObjects($array, $position) 
-   	{
-   		$i = 0;
-   		foreach ($array as $object) {
-   			if ($i % $position) {
-   				$array[$i] = "";
-   			}
-   			$i++;
-   		}	
-   		return $array;
-   	}
-   
+   	
+    // Prepare the data
+    $pointsDay = array_slice($points, -96);
+    $pointsWeek = array_slice($points, -672);
 
-   	
-   	// Last 24 Hours
-   	$labelsLast24Hours = array_slice($result[2], -96);
-   	$labelsLast24Hours = arrayReplaceObjects($labelsLast24Hours, 4);
-   	
-   	// Last Week
-   	$labelsLastWeek = array_slice($result[1], -96*7);
-   	$labelsLastWeek = arrayReplaceObjects($labelsLastWeek, 96);
-   	
-   	$labelsOverall = array_map(function($a, $b){ return $a . ' ' . $b;}, $result[1], $result[2]);
-   	$removeCount = count($labelsOverall) / 10;	// We don't want too many labels
-   	$labelsOverall = arrayReplaceObjects($labelsOverall, $removeCount);
-   	
     ?>
     
     <script type="text/javascript">
 	$(document).ready(function() {
-		var ctx24Hours = $("#last24Hour").get(0).getContext("2d");
-		var chart24Hours = new Chart(ctx24Hours);
-
-		var ctxWeek = $("#week").get(0).getContext("2d");
-		var chartWeek = new Chart(ctxWeek);		
-
-		var ctxOverall = $("#overall").get(0).getContext("2d");
-		var chartOverall = new Chart(ctxOverall);
-
-		var data24Hours = {
-			labels : <?php echo json_encode($labelsLast24Hours); ?>, 
-			datasets : [
-				{
-					fillColor : "rgba(151,187,205,0.5)",
-					strokeColor : "rgba(151,187,205,1)",
-					pointColor : "rgba(151,187,205,1)",
-					pointStrokeColor : "#fff",
-					data : <?php echo json_encode($valuesLast24Hours);?>
-				},
-			]
-		};
-
-		var dataWeek = {
-			labels : <?php echo json_encode($labelsLastWeek); ?>,
-			datasets : [
-				{
-					fillColor : "rgba(151,187,205,0.5)",
-					strokeColor : "rgba(151,187,205,1)",
-					pointColor : "rgba(151,187,205,1)",
-					pointStrokeColor : "#fff",
-					data : <?php echo json_encode($valuesLastWeek);?>
-				},
-			]
-		};		
-
-		
-		var dataOverall = {
-				labels : <?php echo json_encode($labelsOverall); ?>,
-				datasets : [
-					{
-						fillColor : "rgba(151,187,205,0.5)",
-						strokeColor : "rgba(151,187,205,1)",
-						pointColor : "rgba(151,187,205,1)",
-						pointStrokeColor : "#fff",
-						data : <?php echo json_encode($values);?>
-					},
-				]
-			};		
-
-					
 		var options = {
-			scaleOverride : true,
-			scaleSteps : 20,
-			scaleStepWidth :0.5,
-			scaleStartValue: 40,
-			scaleLabel : "<%=value%> C",
-			pointDot : false,
+			xaxis: {
+				mode: 	"time",
+				format: "%d.%m.Y %H:%M"				
+			},
+			grid: {
+				hoverable: true,
+				clickable: true,
+			},
+			tooltip: true,
+			tooltipOpts: {
+				content: "%y C&deg;"
+			}
 		};
 
-		chart24Hours.Line(data24Hours, options);
-		chartWeek.Line(dataWeek, options);
-		chartOverall.Line(dataOverall, options);
+		var dataDay = [{
+			color: "rgb(212,62, 48)",
+			data: <?php echo json_encode($pointsDay);?>
+		}];
+		$.plot($("#day"), dataDay, options);
+
+		var dataWeek = [{
+			color: "rgb(212,62, 48)",
+			data: <?php echo json_encode($pointsWeek);?>
+		}];
+		$.plot($("#week"), dataWeek, options);
+
+		var dataOverall = [{
+			color: "rgb(212,62, 48)",
+			data: <?php echo json_encode($points);?>
+		}];
+		$.plot($("#overall"), dataOverall, options);
 	});
     </script>
     
