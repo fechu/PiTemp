@@ -180,6 +180,11 @@ $highestWeek = getMax($valuesLastWeek);
 				mode: 	"time",
 				format: "%d.%m.Y %H:%M"				
 			},
+			yaxis: {
+				tickFormatter: function(value) {
+					return value.toFixed(1) + ' C&deg;';
+				}
+			},
 			grid: {
 				hoverable: true,
 				clickable: true,
