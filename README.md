@@ -27,7 +27,7 @@ Add the following line to the end of the file.
 	
 This tells cron to execute the script every 15 minutes of an hour. `root` is the user that executes the script. and `/var/www/monitor/monitor.php` is the script that is executed.
 
-That's it! Now you need to wait for your script to collect data.
+That's it! Now you need to wait for your script to collect data. Once you can't wait anymore open your browser (the computer has to be connected to the same network as the Raspberry Pi) and navigate to `http://<Your Pi's IP>/monitor`.
 
 ##Todo
 
