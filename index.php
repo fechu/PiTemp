@@ -191,7 +191,7 @@ $highestWeek = getMax($valuesLastWeek);
 			},
 			tooltip: true,
 			tooltipOpts: {
-				content: "%y C&deg;"
+				content: "%y"
 			}
 		};
 
