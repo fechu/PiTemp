@@ -17,7 +17,14 @@ preg_match_all($regex, $temperatureFile, $result);
 $values = $result[3];
 $floatValues = array();
 foreach ($values as $value) {
-	$floatValues[] = floatval($value);
+	$floatValue = floatval($value);
+	
+	// Conversation to farenheit?
+	if ($config['unit'] == 'f') {
+		$floatValue = $floatValue * 9 / 5 + 32;	// Conversion to Farenheit
+	}
+	
+	$floatValues[] = $floatValue;
 }
 $valuesLast24Hours = array_slice($floatValues, -96);
 $valuesLastWeek = array_slice($floatValues, -96*7);
@@ -34,9 +41,9 @@ $points = array_map(function($a, $b){
 }, $labels, $floatValues);
 
 // Calculate average and min/max values
-$average = average($values);
-$lowest = getMin($values);
-$highest = getMax($values);
+$average = average($floatValues);
+$lowest = getMin($floatValues);
+$highest = getMax($floatValues);
 
 $average24Hours = average($valuesLast24Hours);
 $lowest24Hours = getMin($valuesLast24Hours);
@@ -141,7 +148,6 @@ $highestWeek = getMax($valuesLastWeek);
     // Prepare the data
     $pointsDay = array_slice($points, -96);
     $pointsWeek = array_slice($points, -672);
-
     ?>
     
     <script type="text/javascript">
@@ -153,7 +159,7 @@ $highestWeek = getMax($valuesLastWeek);
 			},
 			yaxis: {
 				tickFormatter: function(value) {
-					return value.toFixed(1) + ' C&deg;';
+					return value.toFixed(1) + ' <?php echo strtoupper($config['unit'])?>&deg;';
 				}
 			},
 			grid: {
