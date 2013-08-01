@@ -73,5 +73,5 @@ function sendEmailNotification($temp, $addresses = array())
 	$headers = "From: PiTemp <notification@pitemp.local> \r\n";
 	
 	// Send the mail!
-	var_dump(mail($to, $subject, $message, $headers));
+	mail($to, $subject, $message, $headers);
 }
