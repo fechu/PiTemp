@@ -36,12 +36,21 @@ You can find all configuration options in the `config.php` file. Have a loot at 
 ###Override Configuration
 If you want to override the configuration but keep it easy to update PiTemp with a `git pull`, you can copy the `config.php` file and name it `local.config.php`. This file will then be ignored by git but merged with the `config.php`. This way you can let the `config.php` file untouched
 
+###Email Notification
+
+Sinve Version 0.1.0 there's support for email notification. You can define a maximum temperature in the `config.php` (or `local.config.php`) file. If the temperature raises above this level, you will receive an email notification to the configured address.
+
+The configuration of Email Notification is not that hard once you configured your Raspberry Pi to send emails. This can be a little bit tricky. Use one of the many Tutorials out there in the world wide web. I used [this one](http://www.dingleberrypi.com/2012/09/tutorial-install-postfix-to-allow-outgoing-email-on-raspberry-pi/) to set `postfix` up. You just have to make the PHP `mail()` function work.
+
+
 ##Todo
 
 - ~~Support temperature display in F&deg;~~   **Now in the config.php file**
 - Support multiple Raspberry Pi
 - Select Timespan
 - Use Sqlite/Mysql database instead of textfile
+- ~~Support for Email notifications~~ **Now in config.php file**
+- Support for [Pushover](https://pushover.net) notifications
 
 ##Libraries
 
