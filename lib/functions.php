@@ -70,7 +70,7 @@ function sendEmailNotification($temp, $addresses = array())
 	$subject = "PiTemp Notification";
 	$message = "Your RaspberryPi's temperature raised above your defined maximum temperature.\r\n\r\n" .
 			"Current temperature is " . $temp . "C";
-	$headers = "From: notification@fidelisfactory.ch \r\n";
+	$headers = "From: PiTemp <notification@pitemp.local> \r\n";
 	
 	// Send the mail!
 	var_dump(mail($to, $subject, $message, $headers));
