@@ -29,9 +29,16 @@ This tells cron to execute the script every 15 minutes of an hour. `root` is the
 
 That's it! Now you need to wait for your script to collect data. Once you can't wait anymore open your browser (the computer has to be connected to the same network as the Raspberry Pi) and navigate to `http://<Your Pi's IP>/monitor`.
 
+##Configuration
+
+You can find all configuration options in the `config.php` file. Have a loot at it as everything is docmented in the `config.php` file directly. 
+
+###Override Configuration
+If you want to override the configuration but keep it easy to update PiTemp with a `git pull`, you can copy the `config.php` file and name it `local.config.php`. This file will then be ignored by git but merged with the `config.php`. This way you can let the `config.php` file untouched
+
 ##Todo
 
-- Support temperature display in F&deg;
+- ~~Support temperature display in F&deg;~~   **Now in the config.php file**
 - Support multiple Raspberry Pi
 - Select Timespan
 - Use Sqlite/Mysql database instead of textfile
