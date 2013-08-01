@@ -1,15 +1,9 @@
 <?php 
-// Load the configuration
-$config = include 'config.php';
-
-if (file_exists('local.config.php')) {
-	// Load the local config an merge
-	$localConfig = include 'local.config.php';
-	$config = array_merge($config, $localConfig);
-}
-
 // Get average functions and all that stuff
 include 'lib/functions.php';
+
+// Load the configuration
+$config = getConfig();
 
 // Load the temperature.log file
 $temperatureFile = file_get_contents('temperature.log');

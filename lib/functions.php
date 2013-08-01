@@ -1,4 +1,20 @@
-<?php 
+<?php
+
+/**
+ * Merges the application and the local config and returns it.
+ */
+function getConfig()
+{
+	$config = include 'config.php';
+	if (file_exists('local.config.php')) {
+		// Load the local config an merge
+		$localConfig = include 'local.config.php';
+		$config = array_merge($config, $localConfig);
+	}
+	
+	return $config;
+}
+
 /**
  * Calculates the average of the given values
  */
@@ -39,4 +55,23 @@ function getMax($values) {
 		}
 	}
 	return number_format($highest, 1);
+}
+
+/**
+ * Sends a notification email to the email address defined 
+ * in the configuration file.
+ * If no email address is defined, this method files silently.
+ * @param $temp The measured temperature
+ * @param $addresses The addresses you want to send an email to.
+ */
+function sendEmailNotification($temp, $addresses = array())
+{
+	$to = join(",", $addresses);
+	$subject = "PiTemp Notification";
+	$message = "Your RaspberryPi's temperature raised above your defined maximum temperature.\r\n\r\n" .
+			"Current temperature is " . $temp . "C";
+	$headers = "From: notification@fidelisfactory.ch \r\n";
+	
+	// Send the mail!
+	var_dump(mail($to, $subject, $message, $headers));
 }
