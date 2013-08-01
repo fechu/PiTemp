@@ -1,6 +1,6 @@
 <?php 
 
-$config = array(
+return  array(
 	
 	/**
 	 * Defines wheter to display the temperature in degrees farenheit or degrees celsius. 

@@ -1,6 +1,12 @@
 <?php 
 // Load the configuration
-include 'config.php';
+$config = include 'config.php';
+
+if (file_exists('local.config.php')) {
+	// Load the local config an merge
+	$localConfig = include 'local.config.php';
+	$config = array_merge($config, $localConfig);
+}
 
 // Get average functions and all that stuff
 include 'lib/functions.php';
