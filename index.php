@@ -1,46 +1,17 @@
 <?php 
+// Load the configuration
+include 'config.php';
+
+// Get average functions and all that stuff
+include 'lib/functions.php';
+
 // Load the temperature.log file
 $temperatureFile = file_get_contents('temperature.log');
+
 // Regex to capture format: 2013-07-22T21:30:01+0200;46.5
 $regex = "/^((?:[0-9]{2,4}-?){3})T((?:[0-9]{2}:?){3}).*?;([0-9.]*$)/im";
-
 preg_match_all($regex, $temperatureFile, $result);
 
-/**
- * Calculates the average of the given values
- */
-function average($values) {
-	$total = 0;
-	$count = 0;
-	foreach ($values as $temperature) {
-		$total += $temperature;
-		$count++;
-	}
-	
-	return number_format(round($total / $count, 1), 1);
-}
-
-function getMin($values) {
-	$lowest = NULL;
-	foreach ($values as $temperature) {
-		$value = $temperature;
-		if ($lowest === NULL || $value < $lowest) {
-			$lowest = $value;
-		}
-	}
-	return number_format($lowest, 1);
-}
-
-function getMax($values) {
-	$highest = NULL;
-	foreach ($values as $temperature) {
-		$value = $temperature;
-		if ($highest === NULL || $value > $highest) {
-			$highest = $value;
-		}
-	}
-	return number_format($highest, 1);
-}
 
 // Prepare the values
 $values = $result[3];
