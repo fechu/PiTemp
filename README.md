@@ -56,7 +56,7 @@ The configuration of Email Notification is not that hard once you configured you
 
 This project uses the following libraries or parts of them:
 
-- Flot ([flotcharts.org](https://www.flotcharts.org)) Released under [MIT License](http://opensource.org/licenses/MIT)
+- Flot ([flotcharts.org](http://www.flotcharts.org)) Released under [MIT License](http://opensource.org/licenses/MIT)
 - Twitter Bootstrap ([twitter.github.io/bootstrap/](https://twitter.github.io/bootstrap)) Released under [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 - jQuery ([jquery.com](http://jquery.com)) Released under [MIT License](http://opensource.org/licenses/MIT)
 
