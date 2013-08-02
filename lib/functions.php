@@ -75,3 +75,38 @@ function sendEmailNotification($temp, $addresses = array())
 	// Send the mail!
 	mail($to, $subject, $message, $headers);
 }
+
+/**
+ * Sends a notification over pushover.net to the user 
+ * that is defined in the configuration file. 
+ * This method uses a small script on our server to "hide" our
+ * application key. 
+ * The script used on our server is also available on github if you 
+ * want to review it. 
+ * @todo Add Github URL to server script
+ * @param $temp The measured temperature
+ * @param $userKey The Pushover User key.
+ */
+function sendPushoverNotification($temp, $userKey)
+{
+	// Get the url to the PiTemp Server
+	$config = getConfig();
+	$pitempServer = $config['pi_temp_server'];
+	
+	// Initialize cURL for the request
+	$curl = curl_init();
+	
+	// Set the options
+	curl_setopt_array($curl, array(
+		CURLOPT_RETURNTRANSFER => 1,
+		CURLOPT_URL => $pitempServer . "?temp=" . $temp . "&userkey=" . $userKey
+	));
+	
+	// Send the request
+	$response = curl_exec($curl);
+	
+	// @todo Add some sort of log to log failed attempts.
+	
+	// Close the request
+	curl_close($curl);
+}
