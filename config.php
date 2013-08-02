@@ -39,5 +39,18 @@ return  array(
 		'email_addresses' => array(
 			'email@you.com',
 		),
+		
+		/**
+		 * Enable notifications with Pushover.
+		 * Take a look at http://pushover.net if you don't know that service.
+		 * You just need to download their application and signup. 
+		 */
+		'enable_pushover' => false,
+		
+		/**
+		 * Drop in your userkey from Pushover. This one is used for sending messages
+		 * to your devices.
+		 */
+		'pushover_userkey' => 'YOUR_USER_KEY',
 	),
 );
