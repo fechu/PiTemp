@@ -39,5 +39,30 @@ return  array(
 		'email_addresses' => array(
 			'email@you.com',
 		),
+		
+
+		/**
+		 * Enable notifications with Pushover.
+		 * Take a look at http://pushover.net if you don't know that service.
+		 * You just need to download their application and signup. 
+		 */
+		'enable_pushover' => false,
+		
+		/**
+		 * Drop in your userkey from Pushover. This one is used for sending messages
+		 * to your devices.
+		 */
+		'pushover_userkey' => 'YOUR_USER_KEY',
 	),
+	
+	/**
+	 * The instance of PiTemp Server. 
+	 * At the moment the PiTemp Server is only used to deliver Pushover notifications
+	 * to Pushover.net. It's a way to hide our Pushover application key. 
+	 * If you want to use your own instance you can get it from 
+	 * https://github.com/fechu/PiTemp-Server.git. Installation instructions are also 
+	 * available on github. Once you have your setup configured just drop in 
+	 * the URL to the pushover.php file in the root directory of PiTemp Server. 
+	 */
+	'pi_temp_server' => 'http://pitemp.fidelisfactory.ch/pushover.php',
 );

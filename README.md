@@ -42,15 +42,23 @@ Sinve Version 0.1.0 there's support for email notification. You can define a max
 
 The configuration of Email Notification is not that hard once you configured your Raspberry Pi to send emails. This can be a little bit tricky. Use one of the many Tutorials out there in the world wide web. I used [this one](http://www.dingleberrypi.com/2012/09/tutorial-install-postfix-to-allow-outgoing-email-on-raspberry-pi/) to set `postfix` up. You just have to make the PHP `mail()` function work.
 
+###Pushover Notification
+
+Since Version 0.2.0 there's support for [Pushover](http://pushover.net) notification. If you want to use this feature, make sure you have the `cURL` extension for PHP installed. You can do so by executing the following commands: 
+
+	sudo apt-get install php5-curl
+
+The next (and last) thing you have to do is insert your Pushover Userkey in your `config.php`/`local.config.php` file. 
+
 
 ##Todo
 
-- ~~Support temperature display in F&deg;~~   **Now in the config.php file**
+- Support F&deg; & C&deg; in Notifications
 - Support multiple Raspberry Pi
 - Select Timespan
 - Use Sqlite/Mysql database instead of textfile
-- ~~Support for Email notifications~~ **Now in config.php file**
-- Support for [Pushover](https://pushover.net) notifications
+- Add possibility to test Notifications
+
 
 ##Libraries
 
@@ -59,6 +67,23 @@ This project uses the following libraries or parts of them:
 - Flot ([flotcharts.org](http://www.flotcharts.org)) Released under [MIT License](http://opensource.org/licenses/MIT)
 - Twitter Bootstrap ([twitter.github.io/bootstrap/](https://twitter.github.io/bootstrap)) Released under [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 - jQuery ([jquery.com](http://jquery.com)) Released under [MIT License](http://opensource.org/licenses/MIT)
+
+##Changelog
+
+###0.1.0
+- Initial release with basic functionality
+
+###0.1.1
+- Fix typo in installation description
+
+###0.1.2
+- Fix [flotcharts.org](http://flotcharts.org) link
+
+###0.2.0
+- Add Pushover support
+- Add configuration for [PiTemp Server](https://github.com/fechu/PiTemp-Server.git)
+
+
 
 
 ##License

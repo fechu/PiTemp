@@ -25,4 +25,9 @@ if ((int)$temp >= $maxTemp) {
 		$addresses = $notificationConfig['email_addresses'];
 		sendEmailNotification($temp, $addresses);
 	}
+	
+	if ($notificationConfig['enable_pushover']) {
+		$userkey = $notificationConfig['pushover_userkey'];
+		sendPushoverNotification($temp, $userkey);
+	}
 }
