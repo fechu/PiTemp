@@ -5,10 +5,10 @@
  */
 function getConfig()
 {
-	$config = include 'config.php';
-	if (file_exists('local.config.php')) {
+	$config = include dirname(__FILE__) . '/../config.php';
+	if (file_exists(dirname(__FILE__) . '/../local.config.php')) {
 		// Load the local config an merge
-		$localConfig = include 'local.config.php';
+		$localConfig = include dirname(__FILE__) . '/../local.config.php';
 		$config = array_merge($config, $localConfig);
 	}
 	
