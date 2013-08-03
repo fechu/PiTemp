@@ -6,7 +6,7 @@ include dirname(__FILE__) . '/lib/functions.php';
 $temp = exec('/opt/vc/bin/vcgencmd measure_temp');
 preg_match("/^temp=([\d.]+)/", $temp, $matches);
 
-// Temprature is stored in at index 1.
+// Temperature is stored in at index 1.
 $temp = $matches[1];
 $date = new DateTime();
 $line = $date->format(DateTime::ISO8601) . ";" . $temp . "\n";
@@ -29,5 +29,11 @@ if ((int)$temp >= $maxTemp) {
 	if ($notificationConfig['enable_pushover']) {
 		$userkey = $notificationConfig['pushover_userkey'];
 		sendPushoverNotification($temp, $userkey);
+	}
+	
+	if ($notificationConfig['enable_pushbullet']) {
+		$deviceid = $notificationConfig['pushbullet_deviceid'];
+		$apikey = $notificationConfig['pushbullet_apikey'];
+		sendPushbulletNotification($temp, $deviceid, $apikey);
 	}
 }
