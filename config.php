@@ -3,7 +3,7 @@
 return  array(
 	
 	/**
-	 * Defines wheter to display the temperature in degrees farenheit or degrees celsius. 
+	 * Defines whether to display the temperature in degrees Fahrenheit or degrees Celsius. 
 	 * 
 	 * Values: 
 	 *  "c" 	Ceslius
@@ -24,7 +24,6 @@ return  array(
 		 */
 		'max_temp' => 50.0,
 		
-		
 		/**
 		 * Enable email notifications. 
 		 * Keep in mind that you have to set the email_address
@@ -40,7 +39,6 @@ return  array(
 			'email@you.com',
 		),
 		
-
 		/**
 		 * Enable notifications with Pushover.
 		 * Take a look at http://pushover.net if you don't know that service.
@@ -53,7 +51,26 @@ return  array(
 		 * to your devices.
 		 */
 		'pushover_userkey' => 'YOUR_USER_KEY',
-	),
+		
+		/**
+		 * Enable notifications with Pushbullet (Android only).
+		 * Take a look at https://www.pushbullet.com if you don't know that service.
+		 * You just need to download their application and signup. 
+		 */
+		'enable_pushbullet' => false,
+		
+		/**
+		 * Drop in your device-id from Pushbullet. It is used for sending messages
+		 * to your device. You can find your device ID in Pushbullet´s dashboard.
+		 */
+		'pushbullet_deviceid' => 'YOUR_DEVICE_ID',
+		
+		/**
+		 * Drop in your API-Key from Pushbullet. It is used to access the Pushbullet
+		 * service. You can find your device ID in Pushbullet´s account settings.
+		 */
+		'pushbullet_apikey' => 'YOUR_API_KEY',
+		),
 	
 	/**
 	 * The instance of PiTemp Server. 
