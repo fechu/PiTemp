@@ -176,12 +176,12 @@ function createNotificationText($temp)
 	
 	// Add (optional) hostname
 	if ($notifiactionConfig['show_hostname']) {
-		$message .= "Hostname: " . gethostname();
+		$message .= "Hostname: " . gethostname() . "\r\n";
 	}
 	
 	// Add (optional) IP address
 	if ($notifiactionConfig['show_ip_address']) {
-		$message .= "IP Address: " . getServerAddress('eth0');
+		$message .= "IP Address: " . getServerAddress('eth0') . "\r\n";
 	}
 	
 	return $message;
