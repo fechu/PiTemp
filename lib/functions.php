@@ -68,8 +68,7 @@ function sendEmailNotification($temp, $addresses = array())
 {
 	$to = join(",", $addresses);
 	$subject = "PiTemp Notification";
-	$message = "Your RaspberryPi's temperature raised above your defined maximum temperature.\r\n\r\n" .
-			"Current temperature is " . $temp . "C";
+	$message = createNotificationText($temp);
 	$headers = "From: PiTemp <notification@pitemp.local> \r\n";
 	
 	// Send the mail!
@@ -109,4 +108,81 @@ function sendPushoverNotification($temp, $userKey)
 	
 	// Close the request
 	curl_close($curl);
+}
+
+/**
+ * Sends a notification via pushbullet.com to the device
+ * that is defined in the configuration file. 
+ * @param $temp The measured temperature
+ * @param $deviceid The Pushbullet device ID.
+ * @param $apikey The Pushbullet API key.
+ */
+function sendPushbulletNotification($temp, $deviceid, $apikey)
+// some code snippets from https://github.com/fodawim/PushBullet-API-PHP/blob/master/pushbullet.php
+{
+	$post_data = array(
+                    'device_id' => $deviceid,
+                    'type' => 'note',
+                    'title' => 'PiTemp notification',
+                    'body' => createNotificationText($temp) 
+	);
+					
+	$post_data_string = http_build_query($post_data);
+
+	$ch = curl_init('https://www.pushbullet.com/api/pushes');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($ch, CURLOPT_USERPWD, $apikey . ":");
+	curl_setopt($ch, CURLOPT_POST, count($post_data));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data_string);
+	$response = curl_exec($ch);
+	// Close the request
+	curl_close($ch);
+}
+
+/**
+ * Gets the local IP address (hopefully)
+ * works with German console language
+ * @todo Implement independent from language
+ * @param $interface The network interface
+*/
+function getServerAddress($interface) 
+{
+	// CLI part only works with German language. You have to change '/inet Adresse to your needs.
+	// code snippet from http://stackoverflow.com/questions/1814611/how-do-i-find-my-servers-ip-address-in-phpcli
+    if(isset($_SERVER["SERVER_ADDR"]))
+    	return $_SERVER["SERVER_ADDR"];
+    else {
+    	// Running CLI
+        $ifconfig = shell_exec('/sbin/ifconfig ' . $interface);
+        preg_match('/inet Adresse:([\d\.]+)/', $ifconfig, $match);
+        return isset($match[1]) ? $match[1] : '';
+    }
+}
+
+/**
+ * Creates the notification text
+ * @param float $temp The temperature in degree C. 
+ */
+function createNotificationText($temp)
+{
+	$config = getConfig();
+	$notifiactionConfig = $config['notification'];
+	
+	$message = "Your Raspberry Pi's temperature raised above your defined maximum temperature. \r\n\r\n";
+	
+	// Add Temp
+	$message .= "Current temperature: " . $temp . "C\r\n";
+	
+	// Add (optional) hostname
+	if ($notifiactionConfig['show_hostname']) {
+		$message .= "Hostname: " . gethostname();
+	}
+	
+	// Add (optional) IP address
+	if ($notifiactionConfig['show_ip_address']) {
+		$message .= "IP Address: " . getServerAddress('eth0');
+	}
+	
+	return $message;
 }
