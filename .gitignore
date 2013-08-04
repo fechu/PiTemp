@@ -1,4 +1,5 @@
 temperature.log
 local.config.php
-
-
+.DS_Store
+*.esproj
+*.espressostorage
