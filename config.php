@@ -25,6 +25,16 @@ return  array(
 		'max_temp' => 50.0,
 		
 		/**
+		 * Define if the IP address of the Raspberry Pi is added to the notification. 
+		 */
+		'show_ip_address' => false,
+		
+		/**
+		 * Define if the hostname of the Raspberry Pi is added to the notification.
+		 */
+		'show_hostname' => false,
+		
+		/**
 		 * Enable email notifications. 
 		 * Keep in mind that you have to set the email_address
 		 * too. Otherwise you won't get any email.
