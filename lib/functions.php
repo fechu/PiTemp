@@ -148,14 +148,13 @@ function sendPushbulletNotification($temp, $deviceid, $apikey)
 */
 function getServerAddress($interface) 
 {
-	// CLI part only works with German language. You have to change '/inet Adresse to your needs.
 	// code snippet from http://stackoverflow.com/questions/1814611/how-do-i-find-my-servers-ip-address-in-phpcli
     if(isset($_SERVER["SERVER_ADDR"]))
     	return $_SERVER["SERVER_ADDR"];
     else {
     	// Running CLI
         $ifconfig = shell_exec('/sbin/ifconfig ' . $interface);
-        preg_match('/inet Adresse:([\d\.]+)/', $ifconfig, $match);
+        preg_match('/inet [A-Za-z]*?:([\d\.]+)/', $ifconfig, $match);
         return isset($match[1]) ? $match[1] : '';
     }
 }
