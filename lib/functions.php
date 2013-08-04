@@ -156,7 +156,7 @@ function getServerAddress($interface)
     	// Running CLI
         $ifconfig = shell_exec('/sbin/ifconfig ' . $interface);
         preg_match('/inet Adresse:([\d\.]+)/', $ifconfig, $match);
-        return $match[1];
+        return isset($match[1]) ? $match[1] : '';
     }
 }
 
