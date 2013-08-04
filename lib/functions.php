@@ -133,14 +133,14 @@ function sendPushbulletNotification($temp, $deviceid, $apikey)
 	$post_data_string = http_build_query($post_data);
 
 	$ch = curl_init('https://www.pushbullet.com/api/pushes');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD, $apikey . ":");
-        curl_setopt($ch, CURLOPT_POST, count($post_data));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data_string);
-		$response = curl_exec($ch);
-		// Close the request
-		curl_close($ch);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($ch, CURLOPT_USERPWD, $apikey . ":");
+	curl_setopt($ch, CURLOPT_POST, count($post_data));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data_string);
+	$response = curl_exec($ch);
+	// Close the request
+	curl_close($ch);
 }
 
 /**
