@@ -52,6 +52,10 @@ Since version 0.2.0 there's support for [Pushover](http://pushover.net) notifica
 
 The next (and last) thing you have to do is insert your Pushover userkey in your `config.php`/`local.config.php` file. 
 
+###Pushbullet Notification
+
+Since version 0.3.0 there's support for [Pushbullet](https://www.pushbullet.com). If you want to use this feature you just have to drop in your API Key and Device ID into the `config`/`local.config.php` file. 
+
 
 ##Todo
 
@@ -60,6 +64,7 @@ The next (and last) thing you have to do is insert your Pushover userkey in your
 - Select timespan
 - Use Sqlite/Mysql database instead of textfile
 - Add possibility to test notifications
+- Add support for hostname/IPAddress in Pushover notification
 
 
 ##Libraries
@@ -69,24 +74,6 @@ This project uses the following libraries or parts of them:
 - Flot ([flotcharts.org](http://www.flotcharts.org)) Released under [MIT License](http://opensource.org/licenses/MIT)
 - Twitter Bootstrap ([twitter.github.io/bootstrap/](https://twitter.github.io/bootstrap)) Released under [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 - jQuery ([jquery.com](http://jquery.com)) Released under [MIT License](http://opensource.org/licenses/MIT)
-
-##Changelog
-
-###0.1.0
-- Initial release with basic functionality
-
-###0.1.1
-- Fix typo in installation description
-
-###0.1.2
-- Fix [flotcharts.org](http://flotcharts.org) link
-
-###0.2.0
-- Add Pushover support
-- Add configuration for [PiTemp Server](https://github.com/fechu/PiTemp-Server.git)
-
-
-
 
 ##License
 
