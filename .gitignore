@@ -1,4 +1,7 @@
 temperature.log
 local.config.php
 
-
+# Eclipse 
+.build*
+.settings
+.project
