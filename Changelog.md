@@ -17,3 +17,7 @@
 - Fix many Typos. ([Litschi](https://github.com/Litschi))
 - Add [Pushbullet](https://www.pushbullet.com) support ([elpatron68](https://github.com/elpatron68))
 - Add configuration for adding Hostname and IP address to notifications. (Thanks to [elpatron68](https://github.com/elpatron68) for the idea)
+
+###0.3.0
+- Add Contributor section to README
+- Add awesome logo (Thanks to [Litschi](https://github.com/Litschi))
