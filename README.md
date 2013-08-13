@@ -80,6 +80,13 @@ This project uses the following libraries or parts of them:
 - Twitter Bootstrap ([twitter.github.io/bootstrap/](https://twitter.github.io/bootstrap)) Released under [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 - jQuery ([jquery.com](http://jquery.com)) Released under [MIT License](http://opensource.org/licenses/MIT)
 
+##Contributers
+
+- [Litschi](https://github.com/Litschi) Created the awesome Logo!
+- [elpatron68](https://github.com/elpatron68) Added the Pushbullet support
+- [fechu](https://github.com/fechu) Yep. That's me!
+
+
 ##License
 
 The MIT License (MIT)
