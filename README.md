@@ -1,8 +1,13 @@
+<center><img src="img/PiTemp.png" /></center>
+
 #PiTemp
+
+
 
 A simple script that monitors your Raspberry Pi's temperature.
 
 ----
+
 
 ![Example Photo](img/Example.png)
 
