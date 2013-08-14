@@ -5,6 +5,7 @@
 #PiTemp
 
 A simple script that monitors your Raspberry Pi's temperature.
+Check out the [Trello Board for this project](https://trello.com/b/qVO2xuEq/open-source-pitemp)
 
 ----
 
@@ -44,13 +45,11 @@ You can find all configuration options in the `config.php` file. Have a look at 
 In case you want to override the configuration but keep it easy to update PiTemp with a `git pull`, you can copy the `config.php` file and name it `local.config.php`. This file will then be ignored by git but merged with the `config.php`. This way you the `config.php` file stays untouched.
 
 ###Email Notification
-
 Since version 0.1.0 there's support for email notification. You can define a maximum temperature in the `config.php` (or `local.config.php`) file. If the temperature raises above this level, you receive an email notification to the configured address.
 
 The configuration of email notification is not that hard once you've configured your Raspberry Pi to send emails. However, this can be a little bit tricky. Use one of the many tutorials out there in the world wide web. I used [this one](http://www.dingleberrypi.com/2012/09/tutorial-install-postfix-to-allow-outgoing-email-on-raspberry-pi/) to set `postfix` up. You just have to make the PHP `mail()` function work.
 
 ###Pushover Notification
-
 Since version 0.2.0 there's support for [Pushover](http://pushover.net) notification. If you want to use this feature, make sure you have the `cURL` extension for PHP installed. You can do so by executing the following commands: 
 
 	sudo apt-get install php5-curl
@@ -58,7 +57,6 @@ Since version 0.2.0 there's support for [Pushover](http://pushover.net) notifica
 The next (and last) thing you have to do is insert your Pushover userkey in your `config.php`/`local.config.php` file. 
 
 ###Pushbullet Notification
-
 Since version 0.3.0 there's support for [Pushbullet](https://www.pushbullet.com). If you want to use this feature you just have to drop in your API Key and Device ID into the `config`/`local.config.php` file. 
 
 
@@ -70,6 +68,8 @@ Since version 0.3.0 there's support for [Pushbullet](https://www.pushbullet.com)
 - Use Sqlite/Mysql database instead of textfile
 - Add possibility to test notifications
 - Add support for hostname/IPAddress in Pushover notification
+
+Check out the [Trello Board for this project](https://trello.com/b/qVO2xuEq/open-source-pitemp)
 
 
 ##Libraries
