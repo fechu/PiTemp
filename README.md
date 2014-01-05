@@ -1,3 +1,17 @@
+----
+Information for using **plot.ly**:
+
+You have to install the plot.ly python package first. For instruction see https://plot.ly/api/. 
+
+Then, in the `update_plotly.py` file fill in your username and api key!
+
+The plot.ly graph can also be embed in your website by using the following code (just replace the plot.ly link):
+
+    <iframe id="igraph" src="https://plot.ly/~jensb89/12/400/250/" width="400" height="250" seamless="seamless" scrolling="no"></iframe>
+----
+
+
+
 <p align="center">
 	<img src="img/PiTemp.png" />
 </p>

@@ -9,6 +9,8 @@ preg_match("/^temp=([\d.]+)/", $temp, $matches);
 // Temperature is stored in at index 1.
 $temp = $matches[1];
 $date = new DateTime();
+$filePath = realpath(dirname(__FILE__));
+$ret = exec($filePath.'/update_plotly.py \''.$date->format('Y-m-d H:i:s').'\' '.$temp);
 $line = $date->format(DateTime::ISO8601) . ";" . $temp . "\n";
 // Write the temp to a file
 $filePath = realpath(dirname(__FILE__));
